@@ -1,4 +1,4 @@
-rootProject.name = "Paging3"
+rootProject.name = "The_Movie_DB"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

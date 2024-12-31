@@ -37,9 +37,10 @@ import coil3.compose.rememberAsyncImagePainter
 import org.jetbrains.compose.resources.painterResource
 import org.wizard.project.data.datamanager.DataManager
 import org.wizard.project.data.model.TvShow
-import paging3.composeapp.generated.resources.Res
-import paging3.composeapp.generated.resources.error
-import paging3.composeapp.generated.resources.placeholder
+import the_movie_db.composeapp.generated.resources.Res
+import the_movie_db.composeapp.generated.resources.error
+import the_movie_db.composeapp.generated.resources.placeholder
+
 
 @Composable
 fun MovieItem(tvShow: TvShow, onClick : () -> Unit) {
