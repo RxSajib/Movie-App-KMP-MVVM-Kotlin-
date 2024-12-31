@@ -1,30 +1,35 @@
 package org.wizard.project
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
+import androidx.navigation.NavHostController
 import app.cash.paging.compose.LazyPagingItems
 import app.cash.paging.compose.collectAsLazyPagingItems
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
 import org.wizard.project.data.model.TvShow
-import org.wizard.project.ui.component.MovieItem
-import org.wizard.project.ui.component.ShimmerEffect
+import org.wizard.project.data.tab.Tab
+import org.wizard.project.ui.navigation.Navigation
+import org.wizard.project.ui.page.BookMark
+import org.wizard.project.ui.page.Profile
 import org.wizard.project.viewmodel.MyViewModel
 
 
@@ -32,58 +37,77 @@ import org.wizard.project.viewmodel.MyViewModel
 @Preview
 fun App(viewModel: MyViewModel = koinViewModel<MyViewModel>()) {
 
-    val list: LazyPagingItems<TvShow> = viewModel.moviepage.collectAsLazyPagingItems()
+    MaterialTheme {
+        Navigation()
+    }
+
+}
+
+
+@Composable
+private fun Content(padding: PaddingValues, selectedIndex: Int, navcontroller: NavHostController) {
+    when (selectedIndex) {
+        0 -> org.wizard.project.ui.page.MainScreen(padding, navcontroller)
+        1 -> BookMark(padding)
+        2 -> Profile(padding)
+    }
+}
+
+@Composable
+fun MainScreen(navcontroller: NavHostController) {
+    val tabs = arrayOf(
+        Tab(title = "Tv Show", icon = Icons.Default.Search),
+        Tab(title = "Favorite", icon = Icons.Default.Favorite),
+        Tab(title = "Profile", icon = Icons.Default.Person)
+    )
+
+    val selectedIndex = remember { mutableIntStateOf(0) }
 
     MaterialTheme {
-
-        Box(modifier = Modifier.fillMaxSize()) {
-
-            LazyColumn {
-
-                list.apply {
-                    when {
-                        loadState.append is LoadState.Loading -> {
-                            item {
-                                CircularProgressIndicator()
-                            }
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(text = "MOVIE DB")
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {}) {
+                            Icon(imageVector = Icons.Default.Menu, contentDescription = null)
                         }
-
-                        loadState.refresh is LoadState.Loading -> {
-                            item {
-                                ShimmerEffect(mymodifier = Modifier.fillParentMaxSize())
-                            }
-                        }
-
-                        loadState.append is LoadState.Error -> {
-                            val error = list.loadState.append as LoadState.Error
-                            item {
-                                Box(modifier = Modifier.fillMaxWidth().padding(10.dp), contentAlignment = Alignment.Center) {
-                                    Column {
-                                        Text(
-                                            text = error.toString()
-                                        )
-                                        Spacer(modifier = Modifier.height(10.dp))
-                                        Button(onClick = {
-                                            list.retry()
-                                        }){
-                                            Text(
-                                                text = "Retry Again"
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-
+                    },
+                    actions = {
+                        IconButton(onClick = {}) {
+                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = null)
                         }
                     }
+
+                )
+            },
+            bottomBar = {
+                BottomNavigation() {
+                    tabs.forEachIndexed { index, tab ->
+                        BottomNavigationItem(
+                            selected = selectedIndex.intValue == index,
+                            label = {
+                                Text(text = tabs[index].title)
+                            },
+                            icon = {
+                                Icon(
+                                    imageVector = tab.icon,
+                                    contentDescription = null
+                                )
+                            },
+                            onClick = {
+                                selectedIndex.intValue = index
+                            }
+                        )
+                    }
+
                 }
-
-                items(list.itemCount) { item ->
-                    list[item]?.let { MovieItem(it) }
-                }
-
-
             }
+        ) { innder_padding ->
+            Content(innder_padding, selectedIndex.intValue, navcontroller)
         }
     }
 }
+

@@ -74,7 +74,9 @@ kotlin {
             implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0-RC")
 
             implementation("com.valentinilk.shimmer:compose-shimmer:1.3.1")
-
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha10")
+            implementation ("androidx.compose.material:material:1.7.0")
+            implementation ("androidx.compose.material:material-icons-extended:1.7.6")
         }
 
         iosMain.dependencies {
@@ -117,6 +119,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.appcompat)
     debugImplementation(compose.uiTooling)
 }
 
