@@ -1,4 +1,4 @@
-package org.wizard.project.repository
+package org.wizard.project.repository.movie_list
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

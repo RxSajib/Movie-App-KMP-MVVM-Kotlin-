@@ -19,7 +19,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -70,7 +72,7 @@ fun MovieItem(tvShow: TvShow, onClick : () -> Unit) {
                     style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp), maxLines = 2, overflow = TextOverflow.Ellipsis
                 )
                 Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    Icon(imageVector = Icons.Default.Info, contentDescription = null, tint = Color(
+                    Icon(imageVector = Icons.Default.Check, contentDescription = null, tint = Color(
                         0x8B363636
                     )
                     )

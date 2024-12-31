@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
@@ -19,6 +21,8 @@ import org.wizard.project.ui.component.LoadNetPage
 import org.wizard.project.ui.component.LoadStateFooterErrorMessage
 import org.wizard.project.ui.component.MovieItem
 import org.wizard.project.ui.component.ShimmerEffect
+import org.wizard.project.utils.NetworkResult
+import org.wizard.project.utils.logMessage
 import org.wizard.project.viewmodel.MyViewModel
 
 @Composable
@@ -27,8 +31,8 @@ fun MainScreen(
     navcontroller: NavHostController,
     viewModel: MyViewModel = koinViewModel<MyViewModel>()
 ) {
-
     val list: LazyPagingItems<TvShow> = viewModel.moviepage.collectAsLazyPagingItems()
+
     Box(modifier = Modifier.fillMaxSize().padding(padding)) {
 
         LazyColumn {

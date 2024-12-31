@@ -1,12 +1,9 @@
-package org.wizard.project.repository
+package org.wizard.project.repository.movie_list
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
-import io.ktor.http.URLProtocol
-import io.ktor.http.buildUrl
-import io.ktor.http.path
-import org.wizard.project.data.model.MostPopularResponse
+import org.wizard.project.ui.dto.MostPopularResponse
 import org.wizard.project.utils.logMessage
 
 class SignInRepository constructor(
