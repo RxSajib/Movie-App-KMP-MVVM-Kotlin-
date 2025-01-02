@@ -15,12 +15,14 @@ import androidx.paging.LoadState
 import app.cash.paging.compose.LazyPagingItems
 import app.cash.paging.compose.collectAsLazyPagingItems
 import org.koin.compose.viewmodel.koinViewModel
+import org.wizard.project.data.datamanager.DataManager
 import org.wizard.project.data.model.TvShow
 import org.wizard.project.ui.component.ErrorHandlerPaging
 import org.wizard.project.ui.component.LoadNetPage
 import org.wizard.project.ui.component.LoadStateFooterErrorMessage
 import org.wizard.project.ui.component.MovieItem
 import org.wizard.project.ui.component.ShimmerEffect
+import org.wizard.project.ui.route.Route
 import org.wizard.project.utils.NetworkResult
 import org.wizard.project.utils.logMessage
 import org.wizard.project.viewmodel.MyViewModel
@@ -39,7 +41,9 @@ fun MainScreen(
             items(list.itemCount) { item ->
                 list[item]?.let {
                     MovieItem(
-                        onClick = {},
+                        onClick = {
+                            navcontroller.navigate(TvShow(id = list[item]!!.id))
+                        },
                         tvShow = it
                     )
                 }

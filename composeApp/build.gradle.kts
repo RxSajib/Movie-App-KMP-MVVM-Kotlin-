@@ -77,6 +77,8 @@ kotlin {
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha10")
             implementation ("androidx.compose.material:material:1.7.0")
             implementation ("androidx.compose.material:material-icons-extended:1.7.6")
+
+            implementation("org.jetbrains.compose.runtime:runtime:1.7.0")
         }
 
         iosMain.dependencies {
